@@ -615,7 +615,6 @@ abstract class QuickBooks_IPP_Service
 		//	the entire object even though we know the Id of the object that we
 		//	want to delete... *sigh*
 		$objects = $this->_query($Context, $realmID, "SELECT * FROM " . $resource . " WHERE Id = '" . QuickBooks_IPP_IDS::usableIDType($ID) . "' ");
-
 		if (isset($objects[0]) and
 			is_object($objects[0]))
 		{
@@ -669,6 +668,15 @@ abstract class QuickBooks_IPP_Service
 		$IPP->useIDSParser(false); // We want raw pdf output
 
 		return $IPP->IDS($Context, $realmID, $resource, QuickBooks_IPP_IDS::OPTYPE_PDF, null, $ID);
+	}
+
+	protected function _send($Context, $realmID, $resource, $ID)
+	{
+		// v3 only
+		$IPP = $Context->IPP();
+		$IPP->useIDSParser(false); // We don't need output here
+
+		return $IPP->IDS($Context, $realmID, $resource, QuickBooks_IPP_IDS::OPTYPE_SEND_EMAIL, null, $ID);
 	}
 
 	/**

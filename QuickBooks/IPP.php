@@ -1067,6 +1067,11 @@ class QuickBooks_IPP
 			$post = false;
 			$url = $this->baseURL() . '/company/' . $realm . '/' . strtolower($resource) . '/' . $ID . '/pdf';
 		}
+		else if ($optype == QuickBooks_IPP_IDS::OPTYPE_SEND_EMAIL)
+		{
+			$post = true;
+			$url = $this->baseURL() . '/company/' . $realm . '/' . strtolower($resource) . '/' . $ID . '/send';
+		}
 
 		$response = $this->_request($Context, QuickBooks_IPP::REQUEST_IDS, $url, $optype, $xml, $post);
 
